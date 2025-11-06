@@ -1,112 +1,120 @@
-# Data Science Project Boilerplate
+# 🏙️ Análisis de Datos de Airbnb en Nueva York
 
-This boilerplate is designed to kickstart data science projects by providing a basic setup for database connections, data processing, and machine learning model development. It includes a structured folder organization for your datasets and a set of pre-defined Python packages necessary for most data science tasks.
+Este proyecto analiza un conjunto de datos de **Airbnb en la ciudad de Nueva York (2019)** con el objetivo de comprender mejor las características, tendencias y patrones del mercado de alquiler vacacional.  
+El análisis se centra en la **exploración, limpieza y preparación de los datos** para su uso en estudios posteriores o modelos predictivos.
 
-## Structure
+---
 
-The project is organized as follows:
+## 🎯 Objetivos del proyecto
 
-- **`src/app.py`** → Main Python script where your project will run.
-- **`src/explore.ipynb`** → Notebook for exploration and testing. Once exploration is complete, migrate the clean code to `app.py`.
-- **`src/utils.py`** → Auxiliary functions, such as database connection.
-- **`requirements.txt`** → List of required Python packages.
-- **`models/`** → Will contain your SQLAlchemy model classes.
-- **`data/`** → Stores datasets at different stages:
-  - **`data/raw/`** → Raw data.
-  - **`data/interim/`** → Temporarily transformed data.
-  - **`data/processed/`** → Data ready for analysis.
+1. **Exploración y comprensión de los datos:**  
+   Analizar la estructura del dataset, revisar la calidad de los datos y comprender las variables más relevantes.
 
+2. **Limpieza y preprocesamiento:**  
+   Eliminar duplicados, valores atípicos y columnas irrelevantes para garantizar un conjunto de datos limpio y confiable.
 
-## ⚡ Initial Setup in Codespaces (Recommended)
+3. **División del dataset:**  
+   Separar los datos en conjuntos de entrenamiento y prueba para futuros modelos de machine learning.
 
-No manual setup is required, as **Codespaces is automatically configured** with the predefined files created by the academy for you. Just follow these steps:
+4. **Almacenamiento de datos procesados:**  
+   Guardar los datos finales en `./data/processed` (no incluido en el repositorio por privacidad y tamaño).
 
-1. **Wait for the environment to configure automatically**.
-   - All necessary packages and the database will install themselves.
-   - The automatically created `username` and `db_name` are in the **`.env`** file at the root of the project.
-2. **Once Codespaces is ready, you can start working immediately**.
+---
 
+## 🧩 Dataset
 
-## 💻 Local Setup (Only if you can't use Codespaces)
+**Fuente:**  
+[AB_NYC_2019.csv](https://raw.githubusercontent.com/4GeeksAcademy/data-preprocessing-project-tutorial/main/AB_NYC_2019.csv)
 
-**Prerequisites**
+El *dataset* inicial contiene **48,895 entradas** y **16 columnas**.
 
-Make sure you have Python 3.11+ installed on your machine. You will also need pip to install the Python packages.
+### Resumen de Características
 
-**Installation**
+| Columna | Tipo de Dato | Recuento No Nulo | Descripción |
+| :--- | :--- | :--- | :--- |
+| `id` | `int64` | 48895 | Identificador de la vivienda. |
+| `name` | `object` | 48879 | Nombre del anuncio (categórico). |
+| `host_id` | `int64` | 48895 | Identificador del arrendador. |
+| `host_name` | `object` | 48874 | Nombre del arrendador (categórico). |
+| `neighbourhood_group` | `object` | 48895 | Grupo de vecindario (categórico). |
+| `neighbourhood` | `object` | 48895 | Vecindario específico (categórico). |
+| `latitude` | `float64` | 48895 | Latitud de la ubicación. |
+| `longitude` | `float64` | 48895 | Longitud de la ubicación. |
+| `room_type` | `object` | 48895 | Tipo de habitación. |
+| `price` | `int64` | 48895 | Precio por noche. |
+| `minimum_nights` | `int64` | 48895 | Estancia mínima requerida. |
+| `number_of_reviews` | `int64` | 48895 | Número total de reseñas. |
+| `last_review` | `object` | 38843 | Fecha de la última reseña (**contiene nulos**). |
+| `reviews_per_month` | `float64` | 38843 | Reseñas por mes (**contiene nulos**). |
+| `calculated_host_listings_count`| `int64` | 48895 | Listados calculados por anfitrión. |
+| `availability_365` | `int64` | 48895 | Días de disponibilidad en el año. |
 
-Clone the project repository to your local machine.
+**Nota sobre los datos:** El *dataset* contiene 10 columnas de datos numéricos y 6 columnas de datos categóricos u *object*. Las columnas `name`, `host_name`, `last_review` y `reviews_per_month` contienen valores nulos que requieren tratamiento.
 
-Navigate to the project directory and install the required Python packages:
+---
 
-```bash
-pip install -r requirements.txt
+## 🧼 Limpieza de datos
+
+Se eliminaron o modificaron:
+- Columnas irrelevantes: `id`, `host_id`, `name`, `host_name`, `neighbourhood`
+- Registros duplicados
+- Valores nulos o inconsistentes
+
+El objetivo fue dejar un dataset estructurado y útil para análisis posteriores.
+
+---
+
+## 🛠️ Tecnologías utilizadas
+
+- **Python 3**
+- **Pandas**
+- **NumPy**
+- **Jupyter Notebook**
+
+---
+
+## 🚀 Cómo ejecutar el proyecto
+
+1. Clona este repositorio:  
+   ```bash
+   git clone https://github.com/<tu-usuario>/<tu-repo>.git
+   cd <tu-repo>
+   ```
+
+2. Instala las dependencias necesarias:  
+   ```bash
+   pip install pandas numpy jupyter
+   ```
+
+3. Abre el notebook en Jupyter:  
+   ```bash
+   jupyter notebook explorar.ipynb
+   ```
+
+---
+
+## 📊 Resultados esperados
+
+- Dataset limpio y preparado para futuros análisis.
+- Identificación de patrones en los precios, ubicaciones y disponibilidad.
+- Base sólida para el desarrollo de modelos predictivos o dashboards interactivos.
+
+---
+
+## 📁 Estructura del proyecto
+
+```
+├── data/
+│   ├── raw/             # Datos originales
+│   └── processed/       # Datos limpios (no incluidos en el repo)
+├── explore.ipynb        # Notebook principal
+├── README.md            # Este archivo
+└── requirements.txt     # Dependencias (opcional)
 ```
 
-**Create a database (if necessary)**
+---
 
-Create a new database within the Postgres engine by customizing and executing the following command:
+## 🧠 Autor
 
-```bash
-$ psql -U postgres -c "DO \$\$ BEGIN 
-    CREATE USER my_user WITH PASSWORD 'my_password'; 
-    CREATE DATABASE my_database OWNER my_user; 
-END \$\$;"
-```
-Connect to the Postgres engine to use your database, manipulate tables, and data:
-
-```bash
-$ psql -U my_user -d my_database
-```
-
-Once inside PSQL, you can create tables, run queries, insert, update, or delete data, and much more!
-
-**Environment Variables**
-
-Create a .env file in the root directory of the project to store your environment variables, such as your database connection string:
-
-```makefile
-DATABASE_URL="postgresql://<USER>:<PASSWORD>@<HOST>:<PORT>/<DB_NAME>"
-
-#example
-DATABASE_URL="postgresql://my_user:my_password@localhost:5432/my_database"
-```
-
-## Running the Application
-
-To run the application, execute the app.py script from the root directory of the project:
-
-```bash
-python src/app.py
-```
-
-## Adding Models
-
-To add SQLAlchemy model classes, create new Python script files within the models/ directory. These classes should be defined according to your database schema.
-
-Example model definition (`models/example_model.py`):
-
-```py
-from sqlalchemy.orm import declarative_base
-from sqlalchemy import String
-from sqlalchemy.orm import Mapped, mapped_column
-
-Base = declarative_base()
-
-class ExampleModel(Base):
-    __tablename__ = 'example_table'
-    id: Mapped[int] = mapped_column(primary_key=True)
-    username: Mapped[str] = mapped_column(unique=True)
-```
-
-## Working with Data
-
-You can place your raw datasets in the data/raw directory, intermediate datasets in data/interim, and processed datasets ready for analysis in data/processed.
-
-To process data, you can modify the app.py script to include your data processing steps, using pandas for data manipulation and analysis.
-
-## Contributors
-
-This template was built as part of the [Data Science and Machine Learning Bootcamp](https://4geeksacademy.com/us/coding-bootcamps/datascience-machine-learning) by 4Geeks Academy by [Alejandro Sanchez](https://twitter.com/alesanchezr) and many other contributors. Learn more about [4Geeks Academy BootCamp programs](https://4geeksacademy.com/us/programs) here.
-
-Other templates and resources like this can be found on the school's GitHub page.
+**Bryan Jumbo Torres**  
+Proyecto desarrollado como parte de un ejercicio de análisis de datos.  
